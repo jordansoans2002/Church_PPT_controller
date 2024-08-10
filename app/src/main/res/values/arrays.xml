@@ -1,0 +1,14 @@
+<resources>
+    <!-- Button Options Preference -->
+    <string-array name="button_display_entries">
+        <item>Arrange buttons vertically</item>
+        <item>Arrange buttons horizontally</item>
+        <item>Don\'t show buttons</item>
+    </string-array>
+
+    <string-array name="button_display_values">
+        <item>vertical</item>
+        <item>horizontal</item>
+        <item>hide</item>
+    </string-array>
+</resources>

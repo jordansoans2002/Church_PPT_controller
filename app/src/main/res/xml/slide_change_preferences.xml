@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Gestures">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/button_display_entries"
+            android:entryValues="@array/button_display_values"
+            android:key="buttonDisplayOptions"
+            android:title="Button options" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="tapToChange"
+            android:title="Tap" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="swipeHorizontalToChange"
+            android:title="Swipe left/right" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="swipeVerticalToChange"
+            android:title="Swipe up/down" />
+    </PreferenceCategory>
+</PreferenceScreen>
