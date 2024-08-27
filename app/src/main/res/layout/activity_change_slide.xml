@@ -11,22 +11,22 @@
         android:id="@+id/previousSlide"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:contentDescription="@string/previous_slide_button_description"
         app:layout_constraintBottom_toTopOf="@id/nextSlide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_up"
-        android:contentDescription="@string/previous_slide_button_description"/>
+        app:srcCompat="@drawable/arrow_up" />
 
     <ImageView
         android:id="@+id/nextSlide"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:contentDescription="@string/next_slide_button_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/previousSlide"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/arrow_down" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
