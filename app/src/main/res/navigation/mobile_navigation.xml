@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.church_ppt_controller.ui.screens.Settings"
+        android:label="Home"
+        tools:layout="@layout/fragment_select_settings" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_change_slide"
+            app:destination="@id/nav_change_slide" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_change_slide"
+        android:name="com.example.church_ppt_controller.ui.screens.ChangeSlideScreen"
+        android:label="Change Slides"
+        tools:layout="@layout/fragment_change_slide" />
+
+</navigation>
