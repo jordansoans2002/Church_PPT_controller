@@ -1,6 +1,5 @@
-package com.example.church_ppt_controller.models.Responses
+package com.example.church_ppt_controller.models.responses
 
-import android.service.autofill.Presentations
 import com.example.church_ppt_controller.models.Presentation
 import kotlinx.serialization.Serializable
 

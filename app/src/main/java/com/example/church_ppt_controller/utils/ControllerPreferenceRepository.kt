@@ -1,6 +1,7 @@
 package com.example.church_ppt_controller.utils
 
 import android.content.Context
+import androidx.compose.foundation.gestures.Orientation
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.Preferences
@@ -40,8 +41,8 @@ class ControllerPreferenceRepository(private val context: Context) {
             val ipAddress = preferences[PreferenceKeys.IP_ADDRESS] ?: "192.168.1."
             val pptControl = preferences[PreferenceKeys.PPT_CONTROL] ?: ControllerViewModel.PptControlOptions.SINGLE.name
             val gesture = preferences[PreferenceKeys.GESTURE] ?: ControllerViewModel.GestureOptions.BUTTON.name
-            val buttonSetting = preferences[PreferenceKeys.BUTTON_SETTING] ?: ControllerViewModel.Orientations.VERTICAL.name
-            val swipeSetting = preferences[PreferenceKeys.SWIPE_SETTING] ?: ControllerViewModel.Orientations.VERTICAL.name
+            val buttonSetting = preferences[PreferenceKeys.BUTTON_SETTING] ?: Orientation.Vertical.name
+            val swipeSetting = preferences[PreferenceKeys.SWIPE_SETTING] ?: Orientation.Vertical.name
             val tapSetting = preferences[PreferenceKeys.TAP_SETTING] ?: ControllerViewModel.TapOptions.SINGLE_TAP.name
             ControllerPreferences(
                 ipAddress,
@@ -71,13 +72,13 @@ class ControllerPreferenceRepository(private val context: Context) {
         }
     }
 
-    suspend fun updateButtonSetting(buttonSetting: ControllerViewModel.Orientations){
+    suspend fun updateButtonSetting(buttonSetting: Orientation){
         context.dataStore.edit { preferences ->
             preferences[PreferenceKeys.BUTTON_SETTING] = buttonSetting.name
         }
     }
 
-    suspend fun updateSwipeSetting(swipeSetting: ControllerViewModel.Orientations) {
+    suspend fun updateSwipeSetting(swipeSetting: Orientation) {
         context.dataStore.edit { preferences ->
             preferences[PreferenceKeys.SWIPE_SETTING]= swipeSetting.name
         }

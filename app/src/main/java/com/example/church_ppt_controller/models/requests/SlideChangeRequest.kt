@@ -1,4 +1,4 @@
-package com.example.church_ppt_controller.models.Requests
+package com.example.church_ppt_controller.models.requests
 
 data class SlideChangeRequest(
     val presentationIds: List<String>,

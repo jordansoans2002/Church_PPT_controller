@@ -3,6 +3,7 @@ package com.example.church_ppt_controller.ui.screens
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +24,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.church_ppt_controller.ui.screens.ControllerViewModel.*
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -108,7 +111,7 @@ fun SettingsScreen(
         var buttonOptionsDialog by remember { mutableStateOf(false) }
         SwitchDescription(
             title = GestureOptions.BUTTON.description,
-            description = buttonOrientation.value.description,
+            description = buttonOrientation.value.name,
             onClick = { buttonOptionsDialog = true},
             onCheckChanged = { checked -> viewModel.changeSelectedGesture(GestureOptions.BUTTON,checked) },
             checked = selectedGesture.value == GestureOptions.BUTTON
@@ -120,10 +123,10 @@ fun SettingsScreen(
                 onDismiss = { buttonOptionsDialog = false },
                 content = { paddingValues ->
                     LazyColumn {
-                        items(Orientations.entries) { option ->
+                        items(Orientation.entries) { option ->
                             HorizontalDivider()
                             Selector(
-                                text = option.description,
+                                text = option.name,
                                 checked = buttonOrientation.value == option,
                                 multiSelect = false,
                                 onClick = {
@@ -142,7 +145,7 @@ fun SettingsScreen(
         var swipeDirectionDialog by remember { mutableStateOf(false) }
         SwitchDescription(
             title = GestureOptions.SWIPE.description,
-            description = swipeDirection.value.description,
+            description = swipeDirection.value.name,
             onClick = { swipeDirectionDialog = true},
             onCheckChanged = { checked -> viewModel.changeSelectedGesture(GestureOptions.SWIPE,checked) },
             checked = selectedGesture.value == GestureOptions.SWIPE
@@ -153,10 +156,10 @@ fun SettingsScreen(
                 onDismiss = { swipeDirectionDialog = false },
                 content = { paddingValues ->
                     LazyColumn {
-                        items(Orientations.entries) { option ->
+                        items(Orientation.entries) { option ->
                             HorizontalDivider()
                             Selector(
-                                text = option.description,
+                                text = option.name,
                                 checked = swipeDirection.value == option,
                                 multiSelect = false,
                                 onClick = {
@@ -212,7 +215,8 @@ fun SettingsScreen(
                 title = "Select Presentation",
                 onDismiss = { viewModel.dismissActiveSlideshowDialog()},
                 onApprove = {
-                    onNavigateToControlSlideshow()
+                    if(!(pptControlOption.value == PptControlOptions.SINGLE && controlledSlideshows.value.size != 1))
+                         onNavigateToControlSlideshow()
                     viewModel.dismissActiveSlideshowDialog()
                 },
                 content = { paddingValues ->
@@ -236,14 +240,17 @@ fun SettingsScreen(
         }
     }
 
-    val error = viewModel.error.collectAsState()
     val context = LocalContext.current
-    if(error.value.isNotEmpty()) {
-        Toast.makeText(
-            context,
-            error.value,
-            Toast.LENGTH_LONG
-        ).show()
+    LaunchedEffect(true) {
+        viewModel.error.collectLatest {
+            if(it.isNotEmpty()) {
+                Toast.makeText(
+                    context,
+                    it,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 }
 
@@ -373,24 +380,23 @@ fun OptionsPopup(
             content(PaddingValues(start = 8.dp, end = 12.dp, top = 8.dp, bottom = 8.dp))
 
             Row {
-
+                Text(
+                    text = "Cancel",
+                    color = Color.Blue,
+                    modifier = Modifier
+                        .clickable { onDismiss() }
+                        .padding(top = 8.dp, start = 16.dp, bottom = 12.dp)
+                )
+                Spacer(Modifier.weight(1f))
                 if(onApprove != null) {
                     Text(
                         text = "Ok",
                         color = Color.Blue,
                         modifier = Modifier
                             .clickable { onApprove() }
-                            .padding(top = 8.dp, start = 16.dp, bottom = 12.dp)
+                            .padding(top = 8.dp, end = 16.dp, bottom = 12.dp)
                     )
                 }
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = "Cancel",
-                    color = Color.Blue,
-                    modifier = Modifier
-                        .clickable { onDismiss() }
-                        .padding(top = 8.dp, end = 16.dp, bottom = 12.dp)
-                )
             }
         }
     }

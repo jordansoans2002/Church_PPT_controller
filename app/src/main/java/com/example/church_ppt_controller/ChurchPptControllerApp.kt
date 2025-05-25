@@ -2,15 +2,11 @@ package com.example.church_ppt_controller
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -66,7 +62,7 @@ fun ChurchPptControllerApp(
                    viewModel = controllerViewModel,
                    modifier = Modifier
                        .fillMaxSize()
-                       .padding(12.dp),
+                       .padding(2.dp),
                )
            }
        }

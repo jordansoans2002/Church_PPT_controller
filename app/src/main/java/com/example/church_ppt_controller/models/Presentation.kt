@@ -1,6 +1,5 @@
 package com.example.church_ppt_controller.models
 
-import com.example.church_ppt_controller.models.Responses.OperationResult
 import kotlinx.serialization.Serializable
 
 @Serializable
